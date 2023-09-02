@@ -32,8 +32,6 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = env.bool('DJANGO_DEBUG')
 
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS')
-SMS_CODE_EXPIRE_TIME = 5 * 60
-INSTAGRAM_CODE_EXPIRE_TIME = 20 * 60
 
 # Application definition
 INSTALLED_APPS = [
@@ -85,19 +83,13 @@ MIGRATION_MODULES = {'sites': 'django.contrib.sites.migrations'}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 # for admin panel
-AUTHENTICATION_BACKENDS = ['apps.accounts.api.rest.v1.backends.PhoneLoginOrRegisterBackend',
-                           'django.contrib.auth.backends.ModelBackend']
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 AUTH_USER_MODEL = 'accounts.User'
 CORS_ORIGIN_ALLOW_ALL = True
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {'default': env.db('DJANGO_DATABASE_URL')}
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
-# redis
-REDIS_PORT = env.int("REDIS_PORT", default=6379)
-REDIS_DBNAME = env.int("REDIS_DBNAME", default=0)
-REDIS_ADDRESS = env.str("REDIS_ADDRESS", default="localhost")
 
 PASSWORD_HASHERS = [
     # https://docs.djangoproject.com/en/dev/topics/auth/passwords/#using-argon2-with-django
@@ -129,14 +121,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+# LANGUAGE_CODE = 'en'
 
 
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+USE_I18N = False
+USE_L10N = False
+USE_TZ = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
